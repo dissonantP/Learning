@@ -1,0 +1,17 @@
+html { font-family: Georgia, 'Times New Roman', serif; background: #f3efe4; color: #191919; }
+body { margin: 0; }
+.paper { width: min(1180px, calc(100% - 32px)); margin: 24px auto 64px; background: #fffdf7; padding: 28px; box-sizing: border-box; box-shadow: 0 2px 18px rgba(0,0,0,.08); }
+.masthead { border-top: 6px double #191919; border-bottom: 2px solid #191919; text-align: center; padding: 16px 0 14px; margin-bottom: 28px; }
+.masthead .kicker { font: 700 13px/1.2 system-ui, sans-serif; text-transform: uppercase; letter-spacing: .14em; }
+.masthead h1 { font-size: clamp(42px, 8vw, 84px); line-height: .95; margin: 8px 0 10px; font-weight: 700; }
+.masthead p { margin: 0 auto; max-width: 820px; font-style: italic; }
+.lead { border-bottom: 1px solid #777; padding-bottom: 24px; margin-bottom: 24px; }
+.lead h2 { font-size: clamp(30px, 5vw, 50px); line-height: 1; margin: 0 0 12px; }
+.grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; border-top: 1px solid #777; }
+.grid article { padding: 18px; border-right: 1px solid #aaa; border-bottom: 1px solid #aaa; }
+.grid article:nth-child(3n) { border-right: 0; }
+article h2 { margin-top: 0; line-height: 1.05; }
+p { line-height: 1.55; }
+a { color: inherit; text-underline-offset: 3px; }
+footer { margin-top: 28px; border-top: 4px double #191919; padding-top: 16px; }
+@media (max-width: 820px) { .grid { grid-template-columns: 1fr; } .grid article { border-right: 0; } .paper { padding: 18px; } }

@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Learning News — September 9, 2026</title>
+  <link rel="stylesheet" href="../../assets/news.css">
+</head>
+<body>
+  <main class="paper">
+    <header class="masthead">
+      <div class="kicker">Learning News</div>
+      <h1>September 9, 2026</h1>
+      <p>AI orchestration, agent infrastructure, MCP, verifier loops, automation, and ephemeral coding environments.</p>
+    </header>
+
+    <section class="lead">
+      <article>
+        <h2>HydraFusion: runtime multi-model orchestration</h2>
+        <p>GitHub’s research preview builds a plan, routes stages to different models, and uses draft/critique/revision or escalation to stronger models.</p>
+        <p><strong>Why it matters:</strong> Model selection becomes part of the control loop rather than a fixed property of an agent.</p>
+        <p><strong>Practical takeaway:</strong> Separate planner → worker → critic, and reserve stronger models for critique or escalation.</p>
+        <p><a href="https://github.blog/ai-and-ml/github-copilot/project-hydrafusion-frontier-quality-via-multi-model-orchestration/">Source</a></p>
+      </article>
+    </section>
+
+    <section class="grid">
+      <article>
+        <h2>CapScope: capability-scoped subagents</h2>
+        <p>Permissions live outside model context and can be scoped per worker rather than inherited globally.</p>
+        <p><strong>Why it matters:</strong> A verifier can be read-only while a coding worker gets repository-write authority.</p>
+        <p><strong>Practical takeaway:</strong> Make capabilities properties of the worker/tool gateway, not prompt instructions.</p>
+        <p><a href="https://arxiv.org/abs/2609.08371">Source</a></p>
+      </article>
+
+      <article>
+        <h2>MCP goes stateless</h2>
+        <p>A recent MCP revision removes much of the protocol’s server-side session requirement.</p>
+        <p><strong>Why it matters:</strong> Remote MCP becomes much easier to scale with ordinary stateless HTTP infrastructure.</p>
+        <p><strong>Practical takeaway:</strong> Prefer stateless workers behind a normal load balancer unless persistent server state is genuinely required.</p>
+        <p><a href="https://aws.amazon.com/blogs/architecture/mcp-went-stateless-is-your-aws-mcp-server-deployment-well-architected/">Source</a></p>
+      </article>
+
+      <article>
+        <h2>Sandbox policy moves into the harness</h2>
+        <p>GitHub Copilot for JetBrains now supports centrally managed filesystem, network, proxy, developer-tool, and Keychain policies, alongside agent logs and OpenTelemetry support.</p>
+        <p><strong>Why it matters:</strong> Agent capability boundaries and observability are becoming first-class platform concerns.</p>
+        <p><strong>Practical takeaway:</strong> Attach sandbox policy to agent identities/profiles rather than shell launchers.</p>
+        <p><a href="https://github.blog/changelog/2026-09-08-enterprise-managed-sandbox-in-copilot-for-jetbrains/">Source</a></p>
+      </article>
+
+      <article>
+        <h2>Optimize task completion, not token count</h2>
+        <p>GitHub argues that overly short tool results can increase total cost by causing more retries, turns, and redundant calls.</p>
+        <p><strong>Why it matters:</strong> “Return as little as possible” is not necessarily the right MCP/tool-design strategy.</p>
+        <p><strong>Practical takeaway:</strong> Measure cost per completed or verifier-passing task, not tokens per turn.</p>
+        <p><a href="https://github.blog/ai-and-ml/github-copilot/how-we-make-ai-coding-more-cost-efficient-without-sacrificing-task-quality/">Source</a></p>
+      </article>
+
+      <article>
+        <h2>ττ-Bench evaluates agents that build agents</h2>
+        <p>The benchmark asks a developer agent to build and deploy a working customer-service agent against a realistic codebase and production-style constraints.</p>
+        <p><strong>Why it matters:</strong> It evaluates the produced harness in operation rather than only grading patches.</p>
+        <p><strong>Practical takeaway:</strong> Outer verifier loops should test artifacts in their real operating environment.</p>
+        <p><a href="https://arxiv.org/abs/2609.04611">Source</a></p>
+      </article>
+
+      <article>
+        <h2>MCP health needs semantic probes</h2>
+        <p>Production measurements suggest many MCP endpoints are reachable while still failing tool delivery, schema, or protocol behavior.</p>
+        <p><strong>Why it matters:</strong> HTTP 200 is a weak health signal for an agent tool server.</p>
+        <p><strong>Practical takeaway:</strong> Run representative tool calls and validate response schemas as synthetic monitoring.</p>
+        <p><a href="https://agentstatus.dev/state-of-mcp-reliability">Source</a></p>
+      </article>
+    </section>
+
+    <footer>
+      <h2>Synthesis</h2>
+      <p>The strongest shared pattern is persistent orchestration state, ephemeral/stateless execution workers, per-worker capabilities, and explicit verifier/escalation stages.</p>
+    </footer>
+  </main>
+</body>
+</html>

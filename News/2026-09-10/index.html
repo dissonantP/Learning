@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Learning News — September 10, 2026</title>
+  <link rel="stylesheet" href="../../assets/news.css">
+  <style>
+    .section-title { border-top: 4px double #191919; border-bottom: 1px solid #777; padding: 12px 0 8px; margin: 34px 0 20px; font-size: clamp(28px, 4vw, 44px); }
+    .visual-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:24px; }
+    .visual-card { border-bottom:1px solid #aaa; padding-bottom:22px; }
+    .visual-card img { width:100%; aspect-ratio:4/3; object-fit:cover; background:#ddd; display:block; }
+    .visual-card figcaption { font: 12px/1.4 system-ui,sans-serif; color:#555; margin-top:7px; }
+    .visual-card h3 { font-size:24px; line-height:1.05; margin:12px 0 8px; }
+    .briefs { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:24px; }
+    .briefs article { border-top:1px solid #999; padding-top:14px; }
+    .tag { font:700 11px/1 system-ui,sans-serif; text-transform:uppercase; letter-spacing:.12em; }
+    @media (max-width:820px){ .visual-grid,.briefs{grid-template-columns:1fr;} }
+  </style>
+</head>
+<body>
+  <main class="paper">
+    <header class="masthead">
+      <div class="kicker">Learning News</div>
+      <h1>September 10, 2026</h1>
+      <p>Agent skills become an infrastructure problem; conceptual art turns bodies, police power, religion, labor, and even revulsion into material.</p>
+    </header>
+
+    <section class="lead">
+      <article>
+        <div class="tag">AI agent infrastructure</div>
+        <h2>“Skills” are moving from local files toward a distributable protocol layer</h2>
+        <p>The MCP Skills working group is converging on a way for servers to distribute structured workflow knowledge alongside tools. The current experimental direction treats skills as discoverable context that can be listed and fetched remotely, with verification requirements around manifests, file digests, origin, and resource bounds.</p>
+        <p>The interesting architectural shift is that a skill is no longer merely a prompt fragment installed on one machine. It can become versioned, remotely updated operational knowledge attached to a tool surface. That creates a new security boundary: a server is now potentially supplying both capabilities <em>and</em> instructions for composing those capabilities.</p>
+        <p><a href="https://github.com/modelcontextprotocol/ext-skills">Skills Over MCP working repository</a> · <a href="https://github.com/modelcontextprotocol/ext-skills/blob/main/docs/threat-model.md">Threat model</a></p>
+      </article>
+    </section>
+
+    <section class="grid">
+      <article>
+        <h2>Skill verification is becoming executable policy</h2>
+        <p>The MCP Inspector CLI documents a <code>--verify</code> mode for checking served skills: fetched resources are checked against advertised digests and frontmatter, producing machine-readable pass/fail output suitable for CI.</p>
+        <p>This is the right direction for agent infrastructure: treat “instructions” with the same supply-chain suspicion as executable dependencies.</p>
+        <p><a href="https://github.com/modelcontextprotocol/inspector/blob/main/clients/cli/README.md">MCP Inspector CLI</a></p>
+      </article>
+
+      <article>
+        <h2>Agent execution is separating from agent orchestration</h2>
+        <p>Cloudflare’s new Cursor integration keeps the planning/agent loop in Cursor while terminal, filesystem, and browser work happens in customer-controlled sandbox workers. The worker establishes an outbound connection, avoiding inbound access into the customer network.</p>
+        <p>That split—central orchestration, replaceable execution substrate—is becoming a recurring pattern across agent systems.</p>
+        <p><a href="https://www.cloudflare.com/en-in/press/press-releases/2026/cloudflare-expands-support-for-ai-coding-agents-with-cursor-cloud-agents-on-cloudflare-sandboxes/">Cloudflare, Sept. 2, 2026</a></p>
+      </article>
+
+      <article>
+        <h2>Scoped identity is becoming the enforcement point</h2>
+        <p>An Anthropic/Google Cloud session this month focuses on per-agent identity, IAM, tool-call guardrails, tracing, and audit events. The useful pattern is not “tell the agent what it may do,” but bind policy to the identity that makes the tool call.</p>
+        <p><a href="https://www.anthropic.com/webinars/rebroadcast-claude-on-google-cloud-monitoring-and-securing-agents-at-scale">Anthropic / Google Cloud</a></p>
+      </article>
+
+      <article>
+        <h2>Stateless MCP changes where orchestration state lives</h2>
+        <p>The 2026-07-28 MCP specification removed the protocol-level session and handshake. Stateful applications now pass explicit handles—browser IDs, basket IDs, workflow IDs—rather than relying on sticky server sessions.</p>
+        <p>For multi-agent systems, this encourages durable state to live in explicit orchestration objects while workers remain horizontally replaceable.</p>
+        <p><a href="https://blog.modelcontextprotocol.io/posts/2026-07-28-release-candidate/">MCP specification notes</a></p>
+      </article>
+    </section>
+
+    <h2 class="section-title">Conceptual art dossier: when the ethical problem is the medium</h2>
+    <p>Rather than a single canonical work, this issue follows a lineage in which the artwork deliberately produces an uncomfortable ethical relation: someone is paid, controlled, exposed, contaminated, injured, offended, or made complicit. The strongest works do not simply depict power; they arrange a situation in which power becomes physically legible.</p>
+
+    <section class="visual-grid">
+      <article class="visual-card">
+        <figure>
+          <img src="https://www.filepicker.io/api/file/EIrwLqF2QCaJgkbYCTMt" alt="Six men standing with a continuous tattooed line across their backs">
+          <figcaption>Santiago Sierra, <em>250 cm Line Tattooed on Six Paid People</em>, 1999. Image/source: Museo Jumex.</figcaption>
+        </figure>
+        <h3>Santiago Sierra — paid bodies as raw material</h3>
+        <p>In Havana, Sierra paid six unemployed men to receive a continuous tattooed line across their backs. The gesture borrows the severity of Minimalism, then contaminates it with the labor relation that formalist art usually suppresses. The accusation is inseparable from the problem: Sierra exposes exploitation by actually constructing an exploitative transaction.</p>
+        <p><a href="https://www.fundacionjumex.org/en/fundacion/coleccion/271-documentacion-de-linea-de-250-cm-tatuada-sobre-seis-personas-remuneradas-santiago-sierra-1999">Museo Jumex</a></p>
+      </article>
+
+      <article class="visual-card">
+        <figure>
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Nuestra_mayor_venganza_ser%C3%A1_estar_vivas_1._Regina_Jos%C3%A9_Galindo.jpg/1280px-Nuestra_mayor_venganza_ser%C3%A1_estar_vivas_1._Regina_Jos%C3%A9_Galindo.jpg" alt="Performance by Regina José Galindo">
+          <figcaption>Regina José Galindo, performance documentation, 2022. Milaenapuros / Wikimedia Commons, CC BY-SA 4.0.</figcaption>
+        </figure>
+        <h3>Regina José Galindo — the vulnerable body as political evidence</h3>
+        <p>Galindo repeatedly uses her own body to materialize state violence, misogyny, militarism, and historical erasure. In <em>¿Quién puede borrar las huellas?</em> (2003), she walked from Guatemala’s Congress to the National Palace carrying a basin of human blood and leaving bloody footprints, a protest against former dictator Efraín Ríos Montt’s presidential candidacy. The body becomes both witness and document.</p>
+        <p><a href="https://www.documenta14.de/en/artists/982/regina-jose-galindo">documenta 14</a> · <a href="https://commons.wikimedia.org/wiki/File:Nuestra_mayor_venganza_ser%C3%A1_estar_vivas_1._Regina_Jos%C3%A9_Galindo.jpg">Image license</a></p>
+      </article>
+
+      <article class="visual-card">
+        <figure>
+          <img src="https://artdone.files.wordpress.com/2017/06/piero-manzoni-artists-shit-merda-d_artista-1961.jpg?w=762" alt="Tin can labeled Artist's Shit by Piero Manzoni">
+          <figcaption>Piero Manzoni, <em>Artist’s Shit</em>, 1961.</figcaption>
+        </figure>
+        <h3>Piero Manzoni — art-market value reduced to a bodily joke</h3>
+        <p>Manzoni produced ninety small tins labeled “Artist’s Shit,” each supposedly containing thirty grams of his feces, initially priced by weight against gold. Whether the contents are literally what the label claims is almost beside the point: authorship, authenticity, disgust, scarcity, and market faith are compressed into one sealed commodity.</p>
+        <p><a href="https://www.tate.org.uk/art/artworks/manzoni-artists-shit-t07667">Tate</a></p>
+      </article>
+
+      <article class="visual-card">
+        <figure>
+          <img src="https://format.creatorcdn.com/7896e079-e41d-4ebd-8e76-d02fd119caa5/0/0/0/0%2C0%2C2429%2C2429%2C1600%2C1600/0-0-0/f3b144e9-8cf1-4e7f-ad9a-ebf8d143ea31/1/2/214A9235.jpeg?fjkss=exp%3D2086524692~hmac%3D72b79983f7c86639b1d50d570defa16b7faad6c6ab2e217e8920052fa2ad9bd3" alt="Crucifix submerged in glowing orange liquid">
+          <figcaption>Andres Serrano, <em>Immersion (Piss Christ)</em>, 1987.</figcaption>
+        </figure>
+        <h3>Andres Serrano — blasphemy that refuses to stay simple</h3>
+        <p>A plastic crucifix photographed while submerged in the artist’s urine became a central object in the U.S. culture wars over public arts funding. The useful complication is that Serrano, raised Catholic, has resisted the easy reading of the work as anti-Christian; the image can read simultaneously as desecration, bodily theology, kitsch critique, and an unusually luminous devotional image.</p>
+        <p><a href="https://lesoeuvres.pinaultcollection.com/en/artwork/piss-christ">Pinault Collection</a> · <a href="https://english.elpais.com/culture/2024-04-06/andre-serrano-on-his-polemic-work-piss-christ-im-still-a-soldier-of-god.html">Serrano interview</a></p>
+      </article>
+
+      <article class="visual-card">
+        <figure>
+          <img src="https://welcometolace.org/wp-content/uploads/2018/01/DSC_0141.jpg" alt="Guillermo Gómez-Peña performing with a megaphone before an audience">
+          <figcaption>Guillermo Gómez-Peña performance documentation. Image: LACE.</figcaption>
+        </figure>
+        <h3>Guillermo Gómez-Peña — the border as a performance technology</h3>
+        <p>Gómez-Peña’s practice turns stereotypes of the “illegal,” the exoticized native, the terrorist, and the border-crosser into unstable live personas. In works such as <em>The Couple in the Cage</em> with Coco Fusco, colonial spectatorship is not represented at a distance; audiences are invited to reveal how readily they accept a racist ethnographic frame when a museum-like apparatus authorizes it.</p>
+        <p><a href="https://www.guillermogomezpena.com/works/">Artist archive</a></p>
+      </article>
+
+      <article class="visual-card">
+        <figure>
+          <img src="https://www.peterkilchmann.com/usr/library/images/main/artists/16/en-el-aire-in-the-air-2003-2011.jpg" alt="Installation with soap bubbles floating through gallery space" onerror="this.style.display='none';this.nextElementSibling.textContent='Teresa Margolles, En el aire (In the Air), 2003/2011. Source: Galerie Peter Kilchmann.'">
+          <figcaption>Teresa Margolles, <em>En el aire (In the Air)</em>, 2003/2011. Source: Galerie Peter Kilchmann.</figcaption>
+        </figure>
+        <h3>Teresa Margolles — contamination as memorial</h3>
+        <p><em>En el aire</em> fills a gallery with bubbles made using water connected to cloths used at sites of violent deaths around Ciudad Juárez. A playful visual language becomes morally poisonous once the material history is disclosed. Margolles repeatedly collapses the distance between sanitized exhibition space and the physical residues of social murder.</p>
+        <p><a href="https://www.peterkilchmann.com/artworks/25686-teresa-margolles-en-el-aire-in-the-air-2003-2011/">Galerie Peter Kilchmann</a></p>
+      </article>
+    </section>
+
+    <section class="briefs">
+      <article>
+        <h2>Tania Bruguera — <em>Tatlin’s Whisper #5</em> (2008)</h2>
+        <p>Two mounted police officers unexpectedly entered Tate Modern and used real crowd-control techniques to order, divide, compress, and redirect museum visitors. Bruguera’s point is experiential: spectators do not look at an image of coercive power; they notice how quickly they obey it.</p>
+        <p><a href="https://taniabruguera.com/tatlins-whisper-5/">Artist documentation</a> · <a href="https://www.tate.org.uk/art/artworks/bruguera-tatlins-whisper-5-t12989">Tate</a></p>
+      </article>
+
+      <article>
+        <h2>Chris Burden — <em>Shoot</em> (1971)</h2>
+        <p>Burden had a friend shoot him in the arm with a .22 rifle before a small audience. The work sits at an ugly boundary between artistic control and actual contingency: the bullet was intended to graze him but penetrated his arm. Conceptual art here becomes less an object than a designed encounter with irreversible risk.</p>
+        <p><a href="https://whitney.org/collection/works/35240">Whitney Museum</a></p>
+      </article>
+
+      <article>
+        <h2>Ai Weiwei — <em>Dropping a Han Dynasty Urn</em> (1995)</h2>
+        <p>Three photographs show Ai deliberately dropping and smashing an approximately two-thousand-year-old vessel. Destruction becomes a dispute over who gets to define cultural value: the preservationist reflex says the act is vandalism; Ai’s broader practice points back toward state-directed destruction and the political manufacture of “heritage.”</p>
+        <p><a href="https://www.mori.art.museum/en/collection/2490/index.html">Mori Art Museum</a></p>
+      </article>
+
+      <article>
+        <h2>Why these works cluster together</h2>
+        <p>The recurring maneuver is to deny the viewer a morally clean position. Sierra implicates the artist in exploitation; Bruguera recruits the audience into obedience; Margolles turns spectators into unwitting participants in a material trace of violence; Serrano makes outrage part of the work’s social life. The “concept” is not merely an idea behind the object. It is a deliberately engineered relation among artist, institution, participant, and viewer.</p>
+      </article>
+    </section>
+
+    <footer>
+      <h2>Connection worth following</h2>
+      <p>There is a surprising structural rhyme between today’s two focuses. Agent infrastructure increasingly treats permissions, provenance, identity, and execution context as part of the system rather than as descriptive metadata. The conceptual artists above do something analogous: they make the usually hidden relations around an artwork—labor, institutional authority, bodily risk, public funding, spectatorship—the actual medium.</p>
+    </footer>
+  </main>
+</body>
+</html>

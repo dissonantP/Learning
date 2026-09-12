@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MCP lost the session — and gained an infrastructure boundary</title>
+  <link rel="stylesheet" href="../../../assets/news.css">
+  <style>
+    .article { max-width: 900px; margin: 0 auto; }
+    .article h1 { font-size: clamp(42px, 7vw, 72px); line-height: .96; margin: 12px 0 16px; }
+    .dek { font-size: 21px; line-height: 1.4; color: #444; }
+    .meta,.eyebrow { font: 700 12px/1.3 system-ui,sans-serif; text-transform: uppercase; letter-spacing: .12em; }
+    .article h2 { font-size: 32px; margin-top: 38px; border-top: 1px solid #888; padding-top: 18px; }
+    .callout { border-left: 5px solid #191919; padding: 4px 0 4px 20px; margin: 28px 0; font-size: 20px; }
+    code { background:#eee9dd; padding:.08em .28em; }
+    .sourcebox { margin-top:40px; padding-top:18px; border-top:4px double #191919; }
+    .back { font: 700 13px system-ui,sans-serif; }
+  </style>
+</head>
+<body>
+  <main class="paper article">
+    <p class="back"><a href="../">← September 11 edition</a></p>
+    <header class="masthead" style="text-align:left">
+      <div class="eyebrow">AI agent infrastructure</div>
+      <h1>MCP lost the session — and gained an infrastructure boundary</h1>
+      <p class="dek">The July 28, 2026 MCP revision is less a protocol cleanup than a change in where agent systems are expected to keep state, route requests, authorize operations, and survive failure.</p>
+      <p class="meta">September 11, 2026</p>
+    </header>
+
+    <p>The largest recent change in Model Context Protocol is architectural rather than cosmetic. MCP <code>2026-07-28</code> removed the <code>initialize</code>/<code>initialized</code> handshake and the protocol-level session ID. Each request now carries the information needed to stand on its own, and an optional <code>server/discover</code> call replaces the old assumption that a long-lived client/server session has already established capabilities.</p>
+
+    <p>That sounds like ordinary HTTP hygiene, but it changes the shape of production agent infrastructure. A request can land on any server instance behind a normal round-robin load balancer. Tool and method names can be surfaced in headers for gateways. Tool catalogs can be cached. Sticky sessions and shared protocol-session storage are no longer prerequisites for remote MCP deployment.</p>
+
+    <div class="callout">The useful mental model is: MCP became stateless, not agent applications. Durable state now has to be explicit.</div>
+
+    <h2>State moves upward into the application</h2>
+    <p>A browser automation tool still needs a browser session; a shopping tool still needs a cart; a workflow still needs a durable execution record. The difference is that these are now application objects passed explicitly as IDs or handles, rather than ambient state smuggled through a protocol session.</p>
+
+    <p>For orchestration systems, this is a strong separation of concerns. The MCP server can become a horizontally replaceable capability endpoint, while a Temporal workflow, agent supervisor, database record, or other orchestration object owns durable state and recovery. That makes retries and failover easier to reason about because the thing that must survive is named rather than implied.</p>
+
+    <h2>Server-to-client interaction is being converted into round trips</h2>
+    <p>The old model let a server issue requests such as sampling or elicitation while handling a client request. The modern design moves toward Multi Round-Trip Requests: the server returns an <code>input_required</code> result containing the requested input and opaque continuation state; the client satisfies it and replays the original operation with the response attached.</p>
+
+    <p>This matters operationally because it avoids holding an open bidirectional stream while a human or model responds. It also means a long-lived agent operation can cross process boundaries more cleanly: the continuation becomes data that can be queued, persisted, traced, and resumed.</p>
+
+    <h2>Several once-core features are deliberately shrinking</h2>
+    <p>Roots, Sampling, and Logging were formally deprecated under SEP-2577. Sampling is particularly revealing. Earlier MCP designs entertained servers asking the client’s model to perform completions, even with tools. The newer direction is narrower: servers expose capabilities; model-provider interaction belongs elsewhere.</p>
+
+    <p>This reduces MCP’s ambition as an agent runtime while strengthening it as an interoperability layer. That is probably healthy. Protocols become easier to secure and operate when they do less invisible work.</p>
+
+    <h2>Gateways become much more useful</h2>
+    <p>The 2026 specification puts method and tool names into <code>Mcp-Method</code> and <code>Mcp-Name</code> headers. Combined with stateless requests, this lets ordinary infrastructure inspect and route agent actions without parsing arbitrary JSON bodies or remembering session history.</p>
+
+    <p>That opens a practical enforcement point for capability policy: “this identity may call <code>search</code> but not <code>delete_customer</code>,” rate limits per tool, audit logs at the gateway, and routing expensive tools to separate execution pools. In other words, an agent tool call starts looking more like an API operation that existing infrastructure knows how to govern.</p>
+
+    <h2>What I would carry into an orchestration design</h2>
+    <p>Keep durable workflow state outside MCP; treat every tool call as replayable unless explicitly documented otherwise; put authorization at the capability boundary rather than in prompts; and make tool-call correlation IDs first-class so a trace can follow one operation through orchestrator, MCP gateway, sandbox, and external API.</p>
+
+    <p>The notable trend is convergence with established distributed-systems practice. Agent infrastructure is becoming less exotic precisely where it is becoming more serious.</p>
+
+    <section class="sourcebox">
+      <h2>Sources</h2>
+      <p><a href="https://blog.modelcontextprotocol.io/posts/2026-07-28/">MCP: The 2026-07-28 Specification</a> — final release notes and architectural changes.</p>
+      <p><a href="https://modelcontextprotocol.io/seps/2577-deprecate-roots-sampling-and-logging">SEP-2577: Deprecate Roots, Sampling, and Logging</a>.</p>
+      <p><a href="https://modelcontextprotocol.io/seps/2322-MRTR">SEP-2322: Multi Round-Trip Requests</a>.</p>
+      <p><a href="https://ruby.sdk.modelcontextprotocol.io/protocol-versions/">MCP Ruby SDK protocol-version notes</a> — useful implementation-level summary of the old and modern eras.</p>
+    </section>
+  </main>
+</body>
+</html>

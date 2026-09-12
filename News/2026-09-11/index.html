@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Learning News — September 11, 2026</title>
+  <link rel="stylesheet" href="../../assets/news.css">
+  <style>
+    .front-grid { display:grid; grid-template-columns:2fr 1fr; gap:28px; }
+    .lead-story { border-bottom:1px solid #777; padding-bottom:24px; }
+    .lead-story h2 { font-size:clamp(38px,5vw,62px); line-height:.98; margin:8px 0 12px; }
+    .lead-story img { width:100%; aspect-ratio:16/9; object-fit:cover; display:block; margin:14px 0; }
+    .side-story { border-top:1px solid #777; padding-top:16px; margin-top:18px; }
+    .side-story:first-child { margin-top:0; }
+    .side-story h2 { font-size:30px; line-height:1.05; margin:6px 0 10px; }
+    .kicker2 { font:700 11px/1.2 system-ui,sans-serif; text-transform:uppercase; letter-spacing:.12em; }
+    .art-strip { margin-top:32px; border-top:4px double #191919; padding-top:20px; }
+    .art-strip h2 { font-size:clamp(34px,4vw,52px); line-height:1; margin:8px 0 14px; }
+    .art-strip img { width:100%; aspect-ratio:21/8; object-fit:cover; display:block; margin:12px 0 10px; }
+    .readmore { font:700 13px system-ui,sans-serif; }
+    @media (max-width:820px){ .front-grid{grid-template-columns:1fr;} }
+  </style>
+</head>
+<body>
+  <main class="paper">
+    <header class="masthead">
+      <div class="kicker">Learning News</div>
+      <h1>September 11, 2026</h1>
+      <p>MCP becomes more like ordinary distributed infrastructure; its tool metadata becomes a supply-chain problem; current art makes invisible systems tactile.</p>
+    </header>
+
+    <section class="front-grid">
+      <article class="lead-story">
+        <div class="kicker2">AI agent infrastructure</div>
+        <h2><a href="articles/mcp-stateless-core.html">MCP lost the session — and gained an infrastructure boundary</a></h2>
+        <p>The July 28 protocol revision removes the handshake and protocol-level session, pushes durable state into explicit application objects, and makes ordinary gateways much more useful for routing, authorization, tracing, and failure recovery.</p>
+        <p>The important consequence is architectural: MCP becomes a thinner capability layer while orchestration state moves into workflows, databases, supervisors, and explicit handles.</p>
+        <p class="readmore"><a href="articles/mcp-stateless-core.html">Read the article →</a></p>
+      </article>
+
+      <div>
+        <article class="side-story">
+          <div class="kicker2">Security</div>
+          <h2><a href="articles/mcp-security-supply-chain.html">The dangerous part of an MCP tool may be its description</a></h2>
+          <p>Tool-poisoning research shows that malicious metadata can manipulate an agent into invoking a different, legitimate high-privilege tool. Discovery itself is becoming a trust boundary.</p>
+          <p class="readmore"><a href="articles/mcp-security-supply-chain.html">Read the article →</a></p>
+        </article>
+
+        <article class="side-story">
+          <div class="kicker2">Practical pattern</div>
+          <h2>Separate discovery from execution</h2>
+          <p>A useful permission model has at least four steps: inventory a tool, expose its metadata to the model, allow the model to propose a call, and actually execute it. “Server enabled” is too coarse.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="art-strip">
+      <div class="kicker2">Conceptual art / current exhibitions</div>
+      <h2><a href="articles/systems-under-pressure.html">Systems under pressure: six current shows worth looking at</a></h2>
+      <img src="https://artguide.artforum.com/wp-content/uploads/2026/08/LEEBU146858_WI_2026_Untitled-WTBV-Velvet-29_crop.jpg?resize=1200%2C600" alt="Lee Bul artwork with fragmented metallic architectural forms">
+      <p>Lee Bul’s technological ruins, Chris Clark’s repurposed Target bags, a communal loom built from waste, a living salt-marsh installation, Oscar yi Hou’s queer nightlife, and Arthur Jafa’s image systems all turn abstract structures into embodied situations.</p>
+      <p>This article is deliberately visual: six image-led examples, plus Teddy Sandoval’s fictional “Butch Gardens School of Art” as an alternative institutional model.</p>
+      <p class="readmore"><a href="articles/systems-under-pressure.html">See all six works →</a></p>
+    </section>
+
+    <footer>
+      <p><a href="../">← Newspaper archive</a></p>
+    </footer>
+  </main>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The dangerous part of an MCP tool may be its description</title>
+  <link rel="stylesheet" href="../../../assets/news.css">
+  <style>
+    .article { max-width: 900px; margin: 0 auto; }
+    .article h1 { font-size: clamp(42px, 7vw, 72px); line-height: .96; margin: 12px 0 16px; }
+    .dek { font-size: 21px; line-height: 1.4; color: #444; }
+    .meta,.eyebrow { font: 700 12px/1.3 system-ui,sans-serif; text-transform: uppercase; letter-spacing: .12em; }
+    .article h2 { font-size: 32px; margin-top: 38px; border-top: 1px solid #888; padding-top: 18px; }
+    .callout { border-left: 5px solid #191919; padding: 4px 0 4px 20px; margin: 28px 0; font-size: 20px; }
+    .sourcebox { margin-top:40px; padding-top:18px; border-top:4px double #191919; }
+    .back { font: 700 13px system-ui,sans-serif; }
+  </style>
+</head>
+<body>
+  <main class="paper article">
+    <p class="back"><a href="../">← September 11 edition</a></p>
+    <header class="masthead" style="text-align:left">
+      <div class="eyebrow">AI agent infrastructure</div>
+      <h1>The dangerous part of an MCP tool may be its description</h1>
+      <p class="dek">Recent tool-poisoning work makes a useful security point: an agent can be compromised before the malicious tool is ever called.</p>
+      <p class="meta">September 11, 2026</p>
+    </header>
+
+    <p>MCP security is easy to frame as “can this tool do something dangerous?” That is too narrow. Tool metadata is placed into the model’s context so the model can decide what to call. That means a malicious tool description is not passive documentation; it is executable influence over the planner.</p>
+
+    <p>This gives MCP a supply-chain property that ordinary API catalogs do not have. Installing or discovering a server can alter the model’s behavior even if the server’s tools are never invoked.</p>
+
+    <div class="callout">The important boundary is not only tool execution. It is tool discovery.</div>
+
+    <h2>Implicit poisoning is worse than “the bad tool did a bad thing”</h2>
+    <p>A January 2026 paper, MCP-ITP, studies a stealthier attack: malicious instructions are embedded in one tool’s metadata, but the poisoned tool itself need not run. The injected instructions can push the model toward invoking some other legitimate, higher-privilege tool instead.</p>
+
+    <p>The authors report attack success rates up to 84.2% on their setup while driving their malicious-tool detection metric as low as 0.3%. The exact numbers are benchmark-specific, but the qualitative result matters more: merely hiding a suspicious tool behind a confirmation dialog does not address metadata-level influence.</p>
+
+    <h2>Client-side validation is still the weak point</h2>
+    <p>A separate 2026 threat-modeling study applied STRIDE and DREAD across MCP hosts, clients, servers, models, authorization servers, and external data stores. Its empirical focus was tool poisoning across seven clients, and it found weak static validation and poor parameter visibility to be recurring problems.</p>
+
+    <p>The paper’s proposed defense is layered: inspect metadata statically, expose the model’s decision path, look for behavioral anomalies, and make tool parameters visible to the user. No single filter is expected to solve this because the attack is partly semantic rather than syntactic.</p>
+
+    <h2>Tool catalogs need provenance and drift detection</h2>
+    <p>MCPRadar is an interesting practical response because it treats an MCP server as something that should be snapshotted and diffed. It inspects instructions, tools, schemas, configuration, dependencies, and behavioral changes rather than only checking package vulnerabilities.</p>
+
+    <p>That is a better analogy than antivirus: a remote MCP server is closer to a dynamically changing plugin with both code and prompt-level authority. If its tool descriptions change between Tuesday and Wednesday, that is a supply-chain event worth reviewing.</p>
+
+    <h2>Code Mode changes the attack surface again</h2>
+    <p>Cloudflare’s Code Mode pattern reduces the number of model-visible tools by exposing a small code interface and keeping a large API schema outside the context. The model searches for relevant operations, writes code to compose them, and execution occurs inside an isolated Worker.</p>
+
+    <p>This can reduce context bloat and metadata exposure, but it introduces a different requirement: the code sandbox, host-provided request function, and credential boundary now become critical. The model no longer has hundreds of tool descriptions in its prompt, but it has a programmable execution surface.</p>
+
+    <h2>A useful permission model</h2>
+    <p>For an agent platform, I would separate at least four permissions: discover a tool, place its metadata into model context, allow the model to propose a call, and actually execute the call. Most current systems collapse those into one “server enabled” switch.</p>
+
+    <p>That separation would make it possible to inventory an MCP server without trusting its descriptions, statically scan metadata before exposure, require explicit approval for newly changed tools, and restrict high-impact capabilities at execution time even if the planner is manipulated.</p>
+
+    <section class="sourcebox">
+      <h2>Sources</h2>
+      <p><a href="https://arxiv.org/abs/2601.07395">MCP-ITP: An Automated Framework for Implicit Tool Poisoning in MCP</a>, Jan. 2026.</p>
+      <p><a href="https://arxiv.org/abs/2603.22489">Model Context Protocol Threat Modeling and Analyzing Vulnerabilities to Prompt Injection with Tool Poisoning</a>, Mar. 2026.</p>
+      <p><a href="https://github.com/yatuk/mcpradar">MCPRadar</a> — open-source MCP security scanner and drift detector.</p>
+      <p><a href="https://developers.cloudflare.com/agents/model-context-protocol/codemode/">Cloudflare Code Mode MCP server patterns</a>.</p>
+    </section>
+  </main>
+</body>
+</html>

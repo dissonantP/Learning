@@ -2,6 +2,10 @@
 
 This file is the canonical state for scheduled learning reports.
 
+## Focus planning policy
+
+Daily focus suggestions should rotate substantially from day to day. Do not keep resurfacing the same unselected ideas just because no feedback was given. Prefer novelty and domain diversity, and deliberately mix adjacent ideas with topics from unrelated fields. Avoid repeating a suggested focus for at least several days unless there is a strong new reason to bring it back.
+
 ## Active
 
 ### AI agent infrastructure

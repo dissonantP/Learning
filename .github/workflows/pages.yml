@@ -30,7 +30,9 @@ jobs:
         run: python -m pip install 'Markdown>=3.8,<4'
 
       - name: Build site
-        run: python scripts/build_site.py
+        run: |
+          python scripts/build_site.py
+          python scripts/add_news_navigation.py
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
